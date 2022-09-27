@@ -15,4 +15,19 @@ router
     .route('/update_order_delivery')
     .patch(patchController.updateOrderDeliveryStatus)
 
+router
+    .route('/update_a_book')
+    .patch(patchController.updateABook)
+
+router
+    .route('/delete_a_book')
+    .patch(patchController.deleteABook)
+
+router
+    .route('/delete_admin')
+    .patch(patchController.deleteAdmin)
+
+router
+    .route('/delete_vendor')
+    .patch(patchController.deleteVendor)
 module.exports = router;

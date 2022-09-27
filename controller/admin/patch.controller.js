@@ -1,5 +1,6 @@
 const Admin = require('../../models/Admin');
 const Order = require('../../models/Order');
+const Book = require('../../models/Book');
 
 module.exports.loginAdmin = async (req, res, next) => {
 
@@ -101,6 +102,94 @@ module.exports.updateOrderDeliveryStatus = async (req, res, next) => {
     } catch (error) {
         return res.status(500).json({
             "result": "something went wrong"
+        })
+    }
+}
+
+
+module.exports.updateABook = async (req, res, next) => {
+    try {
+        const update_book = req.body;
+        const id = req.body._id;
+        const result = await Book.updateOne({ _id: id }, { $set: update_book })
+
+        if (result.modifiedCount > 0 && result.matchedCount > 0) {
+            return res.status(200).json({
+                "result": req.body
+            })
+        }
+        return res.status(500).json({
+            "result": "Internal server error"
+        })
+
+    } catch (error) {
+        return res.status(500).json({
+            "result": "Internal server error"
+        })
+    }
+}
+
+
+module.exports.deleteABook = async (req, res, next) => {
+    try {
+        const id = req.query.id;
+        const result = await Book.deleteOne({ _id: id })
+
+        if (result.deletedCount > 0) {
+            return res.status(200).json({
+                "result": "Deleted successfully"
+            })
+        }
+        return res.status(500).json({
+            "result": "Internal server error"
+        })
+
+    } catch (error) {
+        return res.status(500).json({
+            "result": "Internal server error"
+        })
+    }
+}
+
+
+module.exports.deleteAdmin = async (req, res, next) => {
+    try {
+        const id = req.query.id;
+        const email = req.query.email;
+        const isSuperAdmin = await Admin.findOne({ _id: id });
+        if (isSuperAdmin.role === 'super-admin') {
+            return res.status(401).json({
+                "result": "You cannot remove Super Admin"
+            })
+        } else {
+            const result = await Admin.deleteOne({ _id: id })
+            if (result.deletedCount > 0) {
+                return res.status(200).json({
+                    "result": "Admin removed"
+                })
+            }
+        }
+    } catch (error) {
+        return res.status(500).json({
+            "result": "Internal server error"
+        })
+    }
+}
+
+
+module.exports.deleteVendor = async (req, res, next) => {
+    try {
+        const id = req.query.id;
+        const result = await Admin.deleteOne({ _id: id })
+        if (result.deletedCount > 0) {
+            return res.status(200).json({
+                "result": "Vendor removed"
+            })
+        }
+
+    } catch (error) {
+        return res.status(500).json({
+            "result": "Internal server error"
         })
     }
 }

@@ -35,4 +35,20 @@ router
     .route('/find-a-book')
     .get(getController.findABook)
 
+router
+    .route('/get-all-admin')
+    .get(getController.getAllAdmin)
+
+router
+    .route('/get-all-vendor')
+    .get(getController.getAllVendor)
+
+router
+    .route('/get-all-customer')
+    .get(getController.getAllCustomer)
+
+router
+    .route('/get-all-report')
+    .get(getController.getAllReport)
+
 module.exports = router;

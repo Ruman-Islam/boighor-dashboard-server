@@ -16,6 +16,15 @@ const Admin_Schema = mongoose.Schema({
     },
     vendor_id: {
         type: String
+    },
+    imgURL: {
+        type: String
+    },
+    phone: {
+        type: Number
+    },
+    address: {
+        type: String
     }
 
 }, { timestamps: true });

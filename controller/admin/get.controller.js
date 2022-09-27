@@ -1,7 +1,8 @@
 const Admin = require('../../models/Admin');
 const Order = require('../../models/Order');
 const Book = require('../../models/Book');
-const { find } = require('../../models/Admin');
+const User = require('../../models/User');
+const Report = require('../../models/Report');
 
 
 module.exports.isLogin = async (req, res, next) => {
@@ -138,5 +139,44 @@ module.exports.findABook = async (req, res, next) => {
         return res.status(404).json({
             "result": "something went wrong"
         })
+    }
+}
+
+
+module.exports.getAllAdmin = async (req, res, next) => {
+    try {
+        const result = await Admin.find({ role: { $in: ["admin", "super-admin"] } });
+        res.send(result)
+    } catch (error) {
+
+    }
+}
+
+
+module.exports.getAllVendor = async (req, res, next) => {
+    try {
+        const result = await Admin.find({ role: { $in: ["vendor"] } });
+        res.send(result)
+    } catch (error) {
+
+    }
+}
+
+
+module.exports.getAllCustomer = async (req, res, next) => {
+    try {
+        const result = await User.find({});
+        res.send(result)
+    } catch (error) {
+
+    }
+}
+
+module.exports.getAllReport = async (req, res, next) => {
+    try {
+        const result = await Report.find({});
+        res.send(result)
+    } catch (error) {
+
     }
 }

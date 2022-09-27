@@ -100,8 +100,8 @@ const Book_Schema = mongoose.Schema({
         ]
     },
     offers: {
-        type: Array,
-        default: []
+        type: String,
+        default: ""
     },
     reviews: {
         type: Array,
